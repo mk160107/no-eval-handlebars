@@ -4,22 +4,23 @@ A custom version of the handlebars package which, to improve security, does not 
 
 ## Limitations
 
-- Only the following compile options are supported:
-  - `data`
-  - `knownHelpers`
-  - `knownHelpersOnly`
-  - `noEscape`
-  - `strict`
-  - `assumeObjects`
-  - `preventIndent`
-  - `explicitPartialContext`
+-   Only the following compile options are supported:
 
-- Only the following runtime options are supported:
-  - `data`
-  - `helpers`
-  - `partials`
-  - `decorators` (not documented in the official Handlebars [runtime options documentation](https://handlebarsjs.com/api-reference/runtime-options.html))
-  - `blockParams` (not documented in the official Handlebars [runtime options documentation](https://handlebarsjs.com/api-reference/runtime-options.html))
+    -   `data`
+    -   `knownHelpers`
+    -   `knownHelpersOnly`
+    -   `noEscape`
+    -   `strict`
+    -   `assumeObjects`
+    -   `preventIndent`
+    -   `explicitPartialContext`
+
+-   Only the following runtime options are supported:
+    -   `data`
+    -   `helpers`
+    -   `partials`
+    -   `decorators` (not documented in the official Handlebars [runtime options documentation](https://handlebarsjs.com/api-reference/runtime-options.html))
+    -   `blockParams` (not documented in the official Handlebars [runtime options documentation](https://handlebarsjs.com/api-reference/runtime-options.html))
 
 ## Implementation differences
 
@@ -27,17 +28,17 @@ The standard `handlebars` implementation:
 
 1. When given a template string, e.g. `Hello {{x}}`, return a "render" function which takes an "input" object, e.g. `{ x: 'World' }`.
 1. The first time the "render" function is called the following happens:
-   1. Turn the template string into an Abstract Syntax Tree (AST).
-   1. Convert the AST into a hyper optimized JavaScript function which takes the input object as an argument.
-   1. Call the generate JavaScript function with the given "input" object to produce and return the final output string (`Hello World`).
+    1. Turn the template string into an Abstract Syntax Tree (AST).
+    1. Convert the AST into a hyper optimized JavaScript function which takes the input object as an argument.
+    1. Call the generate JavaScript function with the given "input" object to produce and return the final output string (`Hello World`).
 1. Subsequent calls to the "render" function will re-use the already generated JavaScript function.
 
 The custom `@elastic/handlebars` implementation:
 
 1. When given a template string, e.g. `Hello {{x}}`, return a "render" function which takes an "input" object, e.g. `{ x: 'World' }`.
 1. The first time the "render" function is called the following happens:
-   1. Turn the template string into an Abstract Syntax Tree (AST).
-   1. Process the AST with the given "input" object to produce and return the final output string (`Hello World`).
+    1. Turn the template string into an Abstract Syntax Tree (AST).
+    1. Process the AST with the given "input" object to produce and return the final output string (`Hello World`).
 1. Subsequent calls to the "render" function will re-use the already generated AST.
 
 _Note: Not parsing of the template string until the first call to the "render" function is deliberate as it mimics the original `handlebars` implementation. This means that any errors that occur due to an invalid template string will not be thrown until the first call to the "render" function._
@@ -60,8 +61,8 @@ To instruct the `Visitor` code to traverse any child nodes of a given node, our 
 
 We keep state internally in the `ElasticHandlebarsVisitor` object using the following private properties:
 
-- `contexts`: An array (stack) of `context` objects. In a simple template this array will always only contain a single element: The main `context` object. In more complicated scenarios, new `context` objects will be pushed and popped to and from the `contexts` stack as needed.
-- `output`: An array containing the "rendered" output of each node (normally just one element per node). In the most simple template, this is simply joined together into a the final output string after the AST has been traversed. In more complicated templates, we use this array temporarily to collect parameters to give to helper functions (see the `getParams` function).
+-   `contexts`: An array (stack) of `context` objects. In a simple template this array will always only contain a single element: The main `context` object. In more complicated scenarios, new `context` objects will be pushed and popped to and from the `contexts` stack as needed.
+-   `output`: An array containing the "rendered" output of each node (normally just one element per node). In the most simple template, this is simply joined together into a the final output string after the AST has been traversed. In more complicated templates, we use this array temporarily to collect parameters to give to helper functions (see the `getParams` function).
 
 ## Testing
 
@@ -73,8 +74,8 @@ node scripts/jest packages/kbn-handlebars
 
 By default, each test will run both the original `handlebars` code and the modified `@elastic/handlebars` code to compare if the output of the two are identical. To isolate a test run to just one or the other, you can use the following environment variables:
 
-- `EVAL=1` - Set to only run the original `handlebars` implementation that uses `eval`.
-- `AST=1` - Set to only run the modified `@elastic/handlebars` implementation that doesn't use `eval`.
+-   `EVAL=1` - Set to only run the original `handlebars` implementation that uses `eval`.
+-   `AST=1` - Set to only run the modified `@elastic/handlebars` implementation that doesn't use `eval`.
 
 ## Development
 
@@ -146,7 +147,7 @@ It's possible to see the generated JavaScript code that `handlebars` create for 
 
 Options:
 
-- `-v`: Enable verbose mode.
+-   `-v`: Enable verbose mode.
 
 Example:
 

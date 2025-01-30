@@ -24,24 +24,21 @@ export { Handlebars };
  * @returns A sandboxed/scoped version of the @elastic/handlebars module
  */
 Handlebars.create = function (): typeof Handlebars {
-  const SandboxedHandlebars = originalCreate.call(Handlebars) as typeof Handlebars;
-  // When creating new Handlebars environments, ensure the custom compileAST function is present in the new environment as well
-  SandboxedHandlebars.compileAST = Handlebars.compileAST;
-  return SandboxedHandlebars;
+    const SandboxedHandlebars = originalCreate.call(Handlebars) as typeof Handlebars;
+    // When creating new Handlebars environments, ensure the custom compileAST function is present in the new environment as well
+    SandboxedHandlebars.compileAST = Handlebars.compileAST;
+    return SandboxedHandlebars;
 };
 
-Handlebars.compileAST = function (
-  input: string | hbs.AST.Program,
-  options?: CompileOptions
-): TemplateDelegate {
-  if (input == null || (typeof input !== 'string' && input.type !== 'Program')) {
-    throw new Handlebars.Exception(
-      `You must pass a string or Handlebars AST to Handlebars.compileAST. You passed ${input}`
-    );
-  }
+Handlebars.compileAST = function (input: string | hbs.AST.Program, options?: CompileOptions): TemplateDelegate {
+    if (input == null || (typeof input !== 'string' && input.type !== 'Program')) {
+        throw new Handlebars.Exception(
+            `You must pass a string or Handlebars AST to Handlebars.compileAST. You passed ${input}`,
+        );
+    }
 
-  // If `Handlebars.compileAST` is reassigned, `this` will be undefined.
-  const visitor = new ElasticHandlebarsVisitor(this ?? Handlebars, input, options);
+    // If `Handlebars.compileAST` is reassigned, `this` will be undefined.
+    const visitor = new ElasticHandlebarsVisitor(this ?? Handlebars, input, options);
 
-  return (context: any, runtimeOptions?: RuntimeOptions) => visitor.render(context, runtimeOptions);
+    return (context: any, runtimeOptions?: RuntimeOptions) => visitor.render(context, runtimeOptions);
 };

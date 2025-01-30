@@ -4,6 +4,6 @@
  */
 
 module.exports = {
-  rootDir: '.',
-  roots: ['<rootDir>/src/spec'],
+    rootDir: '.',
+    roots: ['<rootDir>/src/spec'],
 };

@@ -1,15 +1,10 @@
 {
-  "compilerOptions": {
-    "outDir": "target/types",
-    "types": [
-      "jest",
-      "node"
-    ],
-    "composite": true,
-    "rootDir": "."
-  },
-  "include": [
-    "**/*.ts"
-  ],
-  "references": []
+    "compilerOptions": {
+        "outDir": "target/types",
+        "types": ["jest", "node"],
+        "composite": true,
+        "rootDir": "."
+    },
+    "include": ["**/*.ts"],
+    "references": []
 }
