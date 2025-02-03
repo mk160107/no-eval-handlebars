@@ -307,7 +307,6 @@ describe('blocks', () => {
             });
 
             it('unregisters', () => {
-                // @ts-expect-error: Cannot assign to 'decorators' because it is a read-only property.
                 kbnHandlebarsEnv!.decorators = {};
 
                 kbnHandlebarsEnv!.registerDecorator('foo', function () {
@@ -320,10 +319,8 @@ describe('blocks', () => {
             });
 
             it('allows multiple globals', () => {
-                // @ts-expect-error: Cannot assign to 'decorators' because it is a read-only property.
                 kbnHandlebarsEnv!.decorators = {};
 
-                // @ts-expect-error: Expected 2 arguments, but got 1.
                 kbnHandlebarsEnv!.registerDecorator({
                     foo() {},
                     bar() {},
@@ -340,7 +337,6 @@ describe('blocks', () => {
             it('fails with multiple and args', () => {
                 expect(() => {
                     kbnHandlebarsEnv!.registerDecorator(
-                        // @ts-expect-error: Argument of type '{ world(): string; testHelper(): string; }' is not assignable to parameter of type 'string'.
                         {
                             world() {
                                 return 'world!';
