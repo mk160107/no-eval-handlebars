@@ -2,8 +2,7 @@
  * Elasticsearch B.V licenses this file to you under the MIT License.
  * See `packages/kbn-handlebars/LICENSE` for more information.
  */
-
-import Handlebars from 'handlebars';
+import Handlebars from 'handlebars/dist/handlebars';
 import {
     createProtoAccessControl,
     resultIsAllowed,
@@ -173,27 +172,31 @@ export class ElasticHandlebarsVisitor extends Handlebars.Visitor {
         // Alternatively any of the root decorators might call the `defaultMain`
         // function themselves, process its return value, and return a completely
         // different `main` function.
-        const main = this.processDecorators(this.ast, defaultMain);
-        this.processedRootDecorators = true;
+        if (this.ast) {
+            const main = this.processDecorators(this.ast, defaultMain);
+            this.processedRootDecorators = true;
 
-        // Call the `main` function and add the result to the final output.
-        const result = main(this.context, options);
+            // Call the `main` function and add the result to the final output.
+            const result = main(this.context, options);
 
-        if (main === defaultMain) {
-            this.output.push(result);
-            return this.output.join('');
-        } else {
-            // We normally expect the return value of `main` to be a string. However,
-            // if a decorator is used to override the `defaultMain` function, the
-            // return value can be any type. To match the upstream handlebars project
-            // behavior, we want the result of rendering the template to be the
-            // literal value returned by the decorator.
-            //
-            // Since the output array in this case always will be empty, we just
-            // return that single value instead of attempting to join all the array
-            // elements as strings.
-            return result;
+            if (main === defaultMain) {
+                this.output.push(result);
+                return this.output.join('');
+            } else {
+                // We normally expect the return value of `main` to be a string. However,
+                // if a decorator is used to override the `defaultMain` function, the
+                // return value can be any type. To match the upstream handlebars project
+                // behavior, we want the result of rendering the template to be the
+                // literal value returned by the decorator.
+                //
+                // Since the output array in this case always will be empty, we just
+                // return that single value instead of attempting to join all the array
+                // elements as strings.
+                return result;
+            }
         }
+
+        return '';
     }
 
     // ********************************************** //
@@ -744,9 +747,9 @@ export class ElasticHandlebarsVisitor extends Handlebars.Visitor {
         this.output = [];
 
         if (Array.isArray(nodes)) {
-            this.acceptArray(nodes);
+            super.acceptArray(nodes);
         } else {
-            this.accept(nodes);
+            super.accept(nodes);
         }
 
         const result = this.output;
