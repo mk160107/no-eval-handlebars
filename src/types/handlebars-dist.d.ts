@@ -1,14 +1,9 @@
-import 'handlebars';
-import type {
-    HelperDelegate as HelperDelegateFixed,
-    TemplateDelegate as TemplateDelegateFixed,
-    Template as TemplateFixed,
-} from './types';
-
 /**
  * A custom version of the Handlebars module with an extra `compileAST` function and fixed typings.
  */
-declare module 'handlebars' {
+declare module 'handlebars/dist/handlebars' {
+    import * as Handlebars from 'handlebars/dist/handlebars';
+
     /**
      * Compiles the given Handlebars template without the use of `eval`.
      *
@@ -48,4 +43,6 @@ declare module 'handlebars' {
      * @param spec A key/value object where each key is the name of a partial (a string) and each value is the partial (either a string or a partial function).
      */
     export function registerPartial(spec: Record<string, TemplateFixed>): void; // Ensure `spec` object values can be strings
+
+    export = Handlebars;
 }
