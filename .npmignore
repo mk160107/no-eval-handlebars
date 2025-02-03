@@ -1,6 +1,5 @@
-node_modules
 tsconfig.*
 babel.*
 jest.*
 .gitignore
-.npmignore
+.prettierrc

@@ -1,7 +1,7 @@
 {
     "name": "no-eval-handlebars",
     "description": "A custom version of the handlebars package which, to improve security, does not use 'eval' or 'new Function'",
-    "version": "1.0.1",
+    "version": "1.0.2",
     "private": false,
     "license": "MIT",
     "author": "",
