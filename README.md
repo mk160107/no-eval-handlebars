@@ -1,8 +1,8 @@
 # no-eval-handlebars
 
-This is a fork of @elastic/handlebars which some minor bugfixes.
+This is a fork of @elastic/handlebars with some minor bug fixes.
 
-A custom version of the handlebars package which, to improve security, does not use `eval` or `new Function`. This means that templates can't be compiled into JavaScript functions in advance and hence, rendering the templates is a lot slower.
+@elastic/handlebars is a custom version of the handlebars package which, to improve security, does not use `eval` or `new Function`. This means that templates can't be compiled into JavaScript functions in advance and hence, rendering the templates is a lot slower.
 
 ## Limitations
 

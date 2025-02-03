@@ -483,7 +483,7 @@ describe('builtin helpers', () => {
         it('should call logger at default level', function () {
             let levelArg;
             let logArg;
-            kbnHandlebarsEnv!.log = function (level, arg) {
+            kbnHandlebarsEnv!.log = function (level: number, arg: string) {
                 levelArg = level;
                 logArg = arg;
             };
@@ -496,7 +496,7 @@ describe('builtin helpers', () => {
         it('should call logger at data level', function () {
             let levelArg;
             let logArg;
-            kbnHandlebarsEnv!.log = function (level, arg) {
+            kbnHandlebarsEnv!.log = function (level: number, arg: string) {
                 levelArg = level;
                 logArg = arg;
             };

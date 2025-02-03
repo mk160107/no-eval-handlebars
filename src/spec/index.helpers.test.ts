@@ -380,7 +380,6 @@ describe('helpers', () => {
         it('fails with multiple and args', () => {
             expect(() => {
                 kbnHandlebarsEnv!.registerHelper(
-                    // @ts-expect-error TypeScript is complaining about the invalid input just as the thrown error
                     {
                         world() {
                             return 'world!';
