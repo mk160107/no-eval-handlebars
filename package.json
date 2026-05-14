@@ -1,7 +1,7 @@
 {
     "name": "no-eval-handlebars",
     "description": "A custom version of the handlebars package which, to improve security, does not use 'eval' or 'new Function'",
-    "version": "1.0.2",
+    "version": "1.0.3",
     "private": false,
     "license": "MIT",
     "author": "",
@@ -21,7 +21,7 @@
         "watch": "tsc -w"
     },
     "dependencies": {
-        "handlebars": "4.7.8"
+        "handlebars": "^4.7.9"
     },
     "devDependencies": {
         "@babel/core": "^7.24.7",
