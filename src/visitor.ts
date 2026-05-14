@@ -131,7 +131,14 @@ export class ElasticHandlebarsVisitor extends Handlebars.Visitor {
         this.contexts = [context];
         this.output = [];
         this.runtimeOptions = { ...options };
-        this.container.helpers = { ...this.env.helpers, ...options.helpers };
+        this.container.helpers = { ...this.env.helpers };
+        // moveHelperToHooks sets zeroed-out helpers to undefined rather than deleting them,
+        // so explicitly-undefined values in options.helpers must not clobber env.helpers
+        if (options.helpers) {
+            for (const [key, fn] of Object.entries(options.helpers)) {
+                if (fn !== undefined) this.container.helpers[key] = fn;
+            }
+        }
         this.container.partials = { ...this.env.partials, ...options.partials };
         this.container.decorators = {
             ...(this.env.decorators as DecoratorsHash),
